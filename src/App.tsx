@@ -30,12 +30,10 @@ export default function App() {
         <div style={{textAlign:'center',maxWidth:520, padding: 20}}>
           <h2 style={{color: '#D4AF37', marginBottom: 20}}>Google Maps API Key Required</h2>
           <p><strong>Step 1:</strong> <a href="https://console.cloud.google.com/google/maps-apis/start?utm_campaign=gmp-code-assist-ais" target="_blank" rel="noopener" style={{color: '#88f'}}>Get an API Key</a></p>
-          <p><strong>Step 2:</strong> Add your key as a secret in AI Studio:</p>
+          <p><strong>Step 2:</strong> Add your key as an environment variable:</p>
           <ul style={{textAlign:'left',lineHeight:'1.8'}}>
-            <li>Open <strong>Settings</strong> (⚙️ gear icon, <strong>top-right corner</strong>)</li>
-            <li>Select <strong>Secrets</strong></li>
-            <li>Type <code>GOOGLE_MAPS_PLATFORM_KEY</code> as the secret name, press <strong>Enter</strong></li>
-            <li>Paste your API key as the value, press <strong>Enter</strong></li>
+            <li><strong>In AI Studio:</strong> Open Settings (⚙️), go to Secrets, add <code>GOOGLE_MAPS_PLATFORM_KEY</code></li>
+            <li><strong>In Vercel/Netlify:</strong> Go to your project settings, add <code>VITE_GOOGLE_MAPS_PLATFORM_KEY</code> to your environment variables, and trigger a redeploy.</li>
           </ul>
           <p style={{marginTop: 20, color: '#aaa'}}>The app rebuilds automatically after you add the secret.</p>
         </div>
