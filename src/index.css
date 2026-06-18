@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --card: #f8f5f0;
+  --ring: #2e7d32;
+  --input: #e0d6c9;
+  --muted: #f0e9e0;
+  --accent: #c8e6c9;
+  --border: #e0d6c9;
+  --radius: 0.5rem;
+  --chart-1: #4caf50;
+  --chart-2: #388e3c;
+  --chart-3: #2e7d32;
+  --chart-4: #1b5e20;
+  --chart-5: #0a1f0c;
+  --popover: #f8f5f0;
+  --primary: #2e7d32;
+  --sidebar: #f0e9e0;
+  --font-mono: "Source Code Pro", monospace;
+  --font-sans: "Montserrat", sans-serif;
+  --secondary: #e8f5e9;
+  --background: #f8f5f0;
+  --font-serif: "Merriweather", serif;
+  --foreground: #3e2723;
+  --destructive: #c62828;
+  --sidebar-ring: #2e7d32;
+  --sidebar-accent: #c8e6c9;
+  --sidebar-border: #e0d6c9;
+  --card-foreground: #3e2723;
+  --sidebar-primary: #2e7d32;
+  --muted-foreground: #6d4c41;
+  --accent-foreground: #1b5e20;
+  --popover-foreground: #3e2723;
+  --primary-foreground: #ffffff;
+  --sidebar-foreground: #3e2723;
+  --secondary-foreground: #1b5e20;
+  --destructive-foreground: #ffffff;
+  --sidebar-accent-foreground: #1b5e20;
+  --sidebar-primary-foreground: #ffffff;
+}
+
+.dark {
+  --card: #2d3a2e;
+  --ring: #4caf50;
+  --input: #3e4a3d;
+  --muted: #2d3a2e;
+  --accent: #388e3c;
+  --border: #3e4a3d;
+  --radius: 0.5rem;
+  --chart-1: #81c784;
+  --chart-2: #66bb6a;
+  --chart-3: #4caf50;
+  --chart-4: #43a047;
+  --chart-5: #388e3c;
+  --popover: #2d3a2e;
+  --primary: #4caf50;
+  --sidebar: #1c2a1f;
+  --secondary: #3e4a3d;
+  --background: #1c2a1f;
+  --foreground: #f0ebe5;
+  --destructive: #c62828;
+  --sidebar-ring: #4caf50;
+  --sidebar-accent: #388e3c;
+  --sidebar-border: #3e4a3d;
+  --card-foreground: #f0ebe5;
+  --sidebar-primary: #4caf50;
+  --muted-foreground: #d7cfc4;
+  --accent-foreground: #f0ebe5;
+  --popover-foreground: #f0ebe5;
+  --primary-foreground: #0a1f0c;
+  --sidebar-foreground: #f0ebe5;
+  --secondary-foreground: #d7e0d6;
+  --destructive-foreground: #f0ebe5;
+  --sidebar-accent-foreground: #f0ebe5;
+  --sidebar-primary-foreground: #0a1f0c;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@theme inline {
+  --color-card: var(--card);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-radius: var(--radius);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-popover: var(--popover);
+  --color-primary: var(--primary);
+  --color-sidebar: var(--sidebar);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --font-serif: var(--font-serif);
+  --color-foreground: var(--foreground);
+  --color-destructive: var(--destructive);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-card-foreground: var(--card-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  /* Legacy mappings to prevent app breaking */
+  --color-forest: var(--background);
+  --color-forest-light: var(--card);
+  --color-forest-pale: var(--muted);
+  --color-forest-900: var(--muted-foreground);
+  --color-forest-800: var(--border);
+  --color-forest-700: var(--accent);
+  --color-forest-600: var(--muted-foreground);
+  --color-forest-50: var(--foreground);
+  
+  --color-navy: var(--foreground);
+  --color-navy-light: var(--muted-foreground);
+  
+  --color-gold: var(--primary);
+  --color-gold-light: var(--accent);
+  --color-gold-dark: var(--chart-3);
+  
+  --color-ivory: var(--primary-foreground);
+  --color-parchment: var(--foreground);
+  --color-parchment-dark: var(--foreground);
+  --color-parchment-light: var(--muted-foreground);
+
+  /* Preserve Keyframes */
+  --animate-fade-in: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@layer utilities {
+  /* Treating "white" transparent variants as black transparent variants on light bg for legacy stuff */
+  .border-white\/5 { border-color: rgba(62, 39, 35, 0.05) !important; }
+  .border-white\/10 { border-color: rgba(62, 39, 35, 0.1) !important; }
+  .border-white\/20 { border-color: rgba(62, 39, 35, 0.2) !important; }
+  .bg-white\/5 { background-color: rgba(62, 39, 35, 0.05) !important; }
+  .bg-white\/10 { background-color: rgba(62, 39, 35, 0.1) !important; }
+  
+  .bg-pattern {
+    background-image: radial-gradient(rgba(46, 125, 50, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .islamic-pattern {
+    background-color: var(--background);
+    background-image: radial-gradient(rgba(62, 39, 35, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .glass-card {
+    background: var(--card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+  }
+  .glass-card-light {
+    background: var(--muted);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

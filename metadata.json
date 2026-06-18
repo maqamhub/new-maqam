@@ -1,0 +1,6 @@
+{
+  "name": "Maqam",
+  "description": "An Islamic Center and Imam booking platform",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

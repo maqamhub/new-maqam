@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user in the platform, either a Masjid or a Khateeb.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "account_type": { "type": "string", "enum": ["masjid", "khateeb"] },
+        "created_at": { "type": "string", "format": "date-time" },
+        "profile": { "type": "object" },
+        "verified": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["active", "suspended"] }
+      },
+      "required": ["email", "account_type", "created_at"]
+    },
+    "Slot": {
+      "title": "Slot",
+      "description": "A Friday prayer slot posted by a Masjid.",
+      "type": "object",
+      "properties": {
+        "masjidId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "topic": { "type": "string" },
+        "hadiyyaAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["open", "filled", "cancelled"] },
+        "created_at": { "type": "string", "format": "date-time" },
+        "filledById": { "type": "string" }
+      },
+      "required": ["masjidId", "date", "status", "created_at"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "An application or invitation for a slot.",
+      "type": "object",
+      "properties": {
+        "slotId": { "type": "string" },
+        "masjidId": { "type": "string" },
+        "khateebId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected", "withdrawn"] },
+        "type": { "type": "string", "enum": ["application", "invitation"] },
+        "created_at": { "type": "string", "format": "date-time" },
+        "message": { "type": "string" }
+      },
+      "required": ["slotId", "masjidId", "khateebId", "status", "type", "created_at"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message between users.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "text": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["senderId", "receiverId", "text", "created_at", "read"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles."
+    },
+    "/slots/{slotId}": {
+      "schema": { "$ref": "#/entities/Slot" },
+      "description": "Stores Friday prayer slots."
+    },
+    "/applications/{applicationId}": {
+      "schema": { "$ref": "#/entities/Application" },
+      "description": "Stores applications and invitations for slots."
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Stores chat messages."
+    }
+  }
+}

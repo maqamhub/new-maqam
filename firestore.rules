@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} { 
+      allow read, write: if false; 
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admin_users/$(request.auth.uid));
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    match /admin_users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if false; // Only manageable through Firebase Console
+    }
+
+    // users
+    match /users/{userId} {
+      // Anyone signed in can read user profiles so masjids and khateebs can find each other
+      allow read: if isSignedIn();
+      // Only the user themselves can update their profile, or an admin can update the profile
+      allow update: if isOwner(userId) || isAdmin();
+      // Only users can create their own profiles
+      allow create: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // slots
+    match /slots/{slotId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && incoming().masjidId == request.auth.uid;
+      // Masjids can update their own slots. Admins can update any slots.
+      // We might also want to allow khateebs to apply? The slots update happens when a booking is confirmed by Admin, or by Masjid
+      allow update: if isSignedIn() && (existing().masjidId == request.auth.uid || isAdmin() || (existing().status == 'open' && incoming().status == 'pending'));
+      allow delete: if isSignedIn() && (existing().masjidId == request.auth.uid || isAdmin());
+    }
+
+    // applications
+    match /applications/{applicationId} {
+      // A user can read an application if they are either the masjid or khateeb associated with it
+      allow read: if isSignedIn() && (existing().masjidId == request.auth.uid || existing().khateebId == request.auth.uid);
+      allow create: if isSignedIn() && (incoming().khateebId == request.auth.uid || incoming().masjidId == request.auth.uid);
+      allow update: if isSignedIn() && (existing().masjidId == request.auth.uid || existing().khateebId == request.auth.uid);
+      allow delete: if isSignedIn() && (existing().masjidId == request.auth.uid || existing().khateebId == request.auth.uid);
+    }
+
+    // messages
+    match /messages/{messageId} {
+      allow read: if isSignedIn() && (existing().senderId == request.auth.uid || existing().receiverId == request.auth.uid);
+      allow create: if isSignedIn() && incoming().senderId == request.auth.uid;
+    }
+
+    // notifications
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && existing().userId == request.auth.uid;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+  }
+}
